@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{
     User,
-    Product,
-    Customer
+    Product
 };
 use App\Http\Requests\{
     ProductRequest,

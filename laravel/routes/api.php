@@ -96,39 +96,39 @@ Route::group(["prefix" => $version],function() use ($version) {
 	    	// CRUD
 			Route::apiResource("customer",CustomerController::class)->only(["index","store","destroy","update"]);
 
-		// // PRODUCT ROUTE 
-		// 	// GET USER FOR PRODUCT
-		// 	Route::get("/product/get-user",[ProductController::class,"getUser"])->name("product.get-user");
+		// PRODUCT ROUTE 
+			// GET USER FOR PRODUCT
+			Route::get("/product/get-user",[ProductController::class,"getUser"])->name("product.get-user");
 
-		// 	// PRINT 
-	 //    	Route::get("/product/get-print-detail/{user}",[ProductController::class,"getPrintDetail"])->name("product.get-product-detail");
+			// PRINT 
+	    	Route::get("/product/get-print-detail/{user}",[ProductController::class,"getPrintDetail"])->name("product.get-product-detail");
 
-		// 	// EXPORT  (EXCEL/PDF) ALL
-		// 	Route::get("/product/export/{type}",[ProductController::class,"export"])->name("product.export");
+			// EXPORT  (EXCEL/PDF) ALL
+			Route::get("/product/export/{type}",[ProductController::class,"export"])->name("product.export");
 
-		// 	// PRINT ALL
-		//     Route::get("/product/print",[ProductController::class,"print"])->name("product.print");	
+			// PRINT ALL
+		    Route::get("/product/print",[ProductController::class,"print"])->name("product.print");	
 
-		//     // IMPORT 
-		// 	Route::post("/product/import",[ProductController::class,"import"])->name("product.import");
+		    // IMPORT 
+			Route::post("/product/import",[ProductController::class,"import"])->name("product.import");
 
-		// 	// IMPORT TEMPLATE
-	 //    	Route::get("/product/import",[ProductController::class,"importTemplate"])->name("product.import-template");
+			// IMPORT TEMPLATE
+	    	Route::get("/product/import",[ProductController::class,"importTemplate"])->name("product.import-template");
 
-	 //    	// GET CODE
-	 //    	Route::get("/product/get-code",[ProductController::class,"getCode"])->name("product.get-code");
+	    	// GET CODE
+	    	Route::get("/product/get-code",[ProductController::class,"getCode"])->name("product.get-code");
 
-	 //    	// RESTORE ALL
-		// 	Route::post("/product/restore-all",[ProductController::class,"restoreAll"])->name("product.restore-all");
+	    	// RESTORE ALL
+			Route::post("/product/restore-all",[ProductController::class,"restoreAll"])->name("product.restore-all");
 
-		// 	// DESTROY ALL
-	 //    	Route::delete("/product/destroy-all",[ProductController::class,"destroyAll"])->name("product.destroy-all");
+			// DESTROY ALL
+	    	Route::delete("/product/destroy-all",[ProductController::class,"destroyAll"])->name("product.destroy-all");
 
-	 //    	// RESTORE 
-	 //    	Route::post("/product/restore/{id}",[ProductController::class,"restore"])->name("product.restore");
+	    	// RESTORE 
+	    	Route::post("/product/restore/{id}",[ProductController::class,"restore"])->name("product.restore");
 
-	 //    	// CRUD
-		// 	Route::apiResource("product",ProductController::class)->only(["index","store","destroy","update"]);
+	    	// CRUD
+			Route::apiResource("product",ProductController::class)->only(["index","store","destroy","update"]);
 	});
 
 	// Route::group(["prefix" => "transaction","as" => "transaction."],function(){
