@@ -63,19 +63,7 @@ export default {
     };
   },
 
-  created() {
-    let myScript = ["/js/stisla.js", "/js/scripts.js"];
-
-    myScript.forEach((item, index) => {
-      let script = document.createElement("script");
-      script.setAttribute("src", item);
-      document.body.appendChild(script);
-    });
-
-    window.$(".modal.in").modal("hide");
-    window.$(".modal-backdrop").hide();
-    window.$("body").removeClass("modal-open");
-
+  created() {    
     if (this.isDebug) {
       this.$toaster.error(this.error.message);
       console.log(this.error.message);
