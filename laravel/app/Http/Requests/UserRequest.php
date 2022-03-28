@@ -18,7 +18,7 @@ class UserRequest extends FormRequest
     {
         $rules = [
             "code" => "string|required|max:50|unique:users,code",
-            "username" => "string|required|max:100|unique:users,username"
+            "username" => "string|required|max:100|unique:users,username",
             "name" => "string|required|max:100",
             "email" => "string|required|max:50|unique:users,email",
             "password" => "nullable|string|min:8"        

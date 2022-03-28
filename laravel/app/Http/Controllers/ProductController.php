@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -102,6 +102,8 @@ class ProductController extends Controller
             
             $payload = $request->validated();
 
+            unset($payload["images"]);
+
             $product = Product::create($payload);
 
             if($request->hasFile('images')) { 
@@ -149,6 +151,8 @@ class ProductController extends Controller
     
             $payload = $request->validated();
 
+            unset($payload["images"]);
+            
             $oldImages = $product->images;
 
             $product->update($payload);            
@@ -324,6 +328,15 @@ class ProductController extends Controller
             \DB::rollback();
             return FormatResponse::failed($e);
         }   
+    }
+
+    /**
+     * Get Code
+     */
+    public function getCode(){    
+        return response()->json([
+            "code" => FormatResponse::getCode(new Product(),"PT")
+        ]);        
     }
 
     /**

@@ -464,7 +464,7 @@ class TransactionController extends Controller
 
         if($request->filled("search")){
             $data->where(function($q) use ($request) {
-                $q->orWehre("code","like","%".$request->search."%")
+                $q->orWhere("code","like","%".$request->search."%")
                     ->orWhere("name","like","%".$request->search."%");                    
             });
         }        

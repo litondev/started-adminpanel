@@ -5,23 +5,17 @@
                 valign="top"
                 align="center">
                 <b>Kode</b>
-            </td>    
-        </tr>
-        <tr>                            
+            </td>                                   
             <td style="width:100px"
                 valign="top"
                 align="center">
                 <b>Username</b>
-            </td>    
-        </tr>
-        <tr>                            
+            </td>                              
             <td style="width:100px"
                 valign="top"
                 align="center">
                 <b>Nama</b>
-            </td>    
-        </tr>
-         <tr>                            
+            </td>            
             <td style="width:100px"
                 valign="top"
                 align="center">

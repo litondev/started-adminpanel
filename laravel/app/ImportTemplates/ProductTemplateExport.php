@@ -34,7 +34,7 @@ class ProductTemplateExport implements FromView
             [
                 "name" => "Stok",
                 "required" => true 
-            ]
+            ],
             // sold 
             [
                 "name" => "Terjual",
@@ -62,7 +62,7 @@ class ProductTemplateExport implements FromView
             // stock
             [
                 "value" => "10"
-            ]
+            ],
             // sold
             [
                 "value" => "5"

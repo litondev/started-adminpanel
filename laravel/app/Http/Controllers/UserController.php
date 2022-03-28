@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $data = User::query();
 
-        $data->select("id","code","username","email","deleted_at");
+        $data->select("id","code","name","username","email","deleted_at");
         
         if($request->filled("soft_deleted")){
             if($request->soft_deleted == "deleted"){
@@ -348,5 +348,12 @@ class UserController extends Controller
         ]);
         
         return  $pdf->stream();        
+    }
+
+    /**
+     * Show Detail
+     */
+    public function show(User $user){ 
+        return response()->json($user);
     }
 }

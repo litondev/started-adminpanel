@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\{
 	UserController,
-	// CustomerController,
-	// ProductController,
-	// TransactionController
+	CustomerController,
+	ProductController,
+	TransactionController
 };
 
 /*
@@ -32,102 +32,102 @@ Route::group(["prefix" => $version],function() use ($version) {
 
 	Route::group(["prefix" => "master","as" => "master."],function(){
 		// USER ROUTE
-			// PRINT 
+			// PRINT (DONE)
 	    	Route::get("/user/get-print-detail/{user}",[UserController::class,"getPrintDetail"])->name("user.get-user-detail");
 
-			// EXPORT  (EXCEL/PDF) ALL
+			// EXPORT  (EXCEL/PDF) ALL (DONE)
 			Route::get("/user/export/{type}",[UserController::class,"export"])->name("user.export");
 
-			// PRINT ALL
+			// PRINT ALL (DONE)
 		    Route::get("/user/print",[UserController::class,"print"])->name("user.print");	
 
 		    // IMPORT 
 			Route::post("/user/import",[UserController::class,"import"])->name("user.import");
 
-			// IMPORT TEMPLATE
+			// IMPORT TEMPLATE (DONE)
 	    	Route::get("/user/import",[UserController::class,"importTemplate"])->name("user.import-template");
 
-	    	// GET CODE
+	    	// GET CODE (DONE)
 	    	Route::get("/user/get-code",[UserController::class,"getCode"])->name("user.get-code");
 
-	    	// RESTORE ALL
+	    	// RESTORE ALL (DONE)
 			Route::post("/user/restore-all",[UserController::class,"restoreAll"])->name("user.restore-all");
 
-			// DESTROY ALL
+			// DESTROY ALL (DONE)
 	    	Route::delete("/user/destroy-all",[UserController::class,"destroyAll"])->name("user.destroy-all");
 
-	    	// RESTORE 
+	    	// RESTORE (DONE)
 	    	Route::post("/user/restore/{id}",[UserController::class,"restore"])->name("user.restore");
 
-	    	// CRUD
-			Route::apiResource("user",UserController::class)->only(["index","store","destroy","update"]);
+	    	// CRUD (DONE)
+			Route::apiResource("user",UserController::class)->only(["index","store","destroy","update","show"]);
 
 		// CUSTOMER ROUTE 
-			// GET USER FOR CUSTOMER
+			// GET USER FOR CUSTOMER (DONE)
 			Route::get("/customer/get-user",[CustomerController::class,"getUser"])->name("customer.get-user");
 
-			// PRINT 
-	    	Route::get("/customer/get-print-detail/{user}",[CustomerController::class,"getPrintDetail"])->name("customer.get-customer-detail");
+			// PRINT (DONE)
+	    	Route::get("/customer/get-print-detail/{customer}",[CustomerController::class,"getPrintDetail"])->name("customer.get-customer-detail");
 
-			// EXPORT  (EXCEL/PDF) ALL
+			// EXPORT  (EXCEL/PDF) ALL (DONE)
 			Route::get("/customer/export/{type}",[CustomerController::class,"export"])->name("customer.export");
 
-			// PRINT ALL
+			// PRINT ALL (DONE)
 		    Route::get("/customer/print",[CustomerController::class,"print"])->name("customer.print");	
 
 		    // IMPORT 
 			Route::post("/customer/import",[CustomerController::class,"import"])->name("customer.import");
 
-			// IMPORT TEMPLATE
+			// IMPORT TEMPLATE (DONE)
 	    	Route::get("/customer/import",[CustomerController::class,"importTemplate"])->name("customer.import-template");
 
-	    	// GET CODE
+	    	// GET CODE (DONE)
 	    	Route::get("/customer/get-code",[CustomerController::class,"getCode"])->name("customer.get-code");
 
-	    	// RESTORE ALL
+	    	// RESTORE ALL (DONE)
 			Route::post("/customer/restore-all",[CustomerController::class,"restoreAll"])->name("customer.restore-all");
 
-			// DESTROY ALL
+			// DESTROY ALL (DONE)
 	    	Route::delete("/customer/destroy-all",[CustomerController::class,"destroyAll"])->name("customer.destroy-all");
 
-	    	// RESTORE 
+	    	// RESTORE (DONE)
 	    	Route::post("/customer/restore/{id}",[CustomerController::class,"restore"])->name("customer.restore");
 
-	    	// CRUD
-			Route::apiResource("customer",CustomerController::class)->only(["index","store","destroy","update"]);
+	    	// CRUD (DONE)
+			Route::apiResource("customer",CustomerController::class)->only(["index","store","destroy","update","show"]);
 
 		// PRODUCT ROUTE 
-			// GET USER FOR PRODUCT
+			// GET USER FOR PRODUCT (DONE)
 			Route::get("/product/get-user",[ProductController::class,"getUser"])->name("product.get-user");
 
-			// PRINT 
-	    	Route::get("/product/get-print-detail/{user}",[ProductController::class,"getPrintDetail"])->name("product.get-product-detail");
+			// PRINT (DONE)
+	    	Route::get("/product/get-print-detail/{product}",[ProductController::class,"getPrintDetail"])->name("product.get-product-detail");
 
-			// EXPORT  (EXCEL/PDF) ALL
+			// EXPORT  (EXCEL/PDF) ALL (DONE)
 			Route::get("/product/export/{type}",[ProductController::class,"export"])->name("product.export");
 
-			// PRINT ALL
+			// PRINT ALL (DONE)
 		    Route::get("/product/print",[ProductController::class,"print"])->name("product.print");	
 
 		    // IMPORT 
 			Route::post("/product/import",[ProductController::class,"import"])->name("product.import");
 
-			// IMPORT TEMPLATE
+			// IMPORT TEMPLATE (DONE)
 	    	Route::get("/product/import",[ProductController::class,"importTemplate"])->name("product.import-template");
 
-	    	// GET CODE
+	    	// GET CODE (DONE)
 	    	Route::get("/product/get-code",[ProductController::class,"getCode"])->name("product.get-code");
 
-	    	// RESTORE ALL
+	    	// RESTORE ALL (DONE)
 			Route::post("/product/restore-all",[ProductController::class,"restoreAll"])->name("product.restore-all");
 
-			// DESTROY ALL
+			// DESTROY ALL (DONE)
 	    	Route::delete("/product/destroy-all",[ProductController::class,"destroyAll"])->name("product.destroy-all");
 
-	    	// RESTORE 
+	    	// RESTORE (DONE)
 	    	Route::post("/product/restore/{id}",[ProductController::class,"restore"])->name("product.restore");
 
-	    	// CRUD
+	    	// CRUD (DONE)
 			Route::apiResource("product",ProductController::class)->only(["index","store","destroy","update","show"]);
 	});
 

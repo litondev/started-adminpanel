@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
 	use SoftDeletes;
-	
+	    
     protected $guarded = [];
-   
+    
+    protected $casts = [
+        'images' => 'array',
+    ];
+
     public function user(){
     	return $this->belongsTo(User::class);
     }

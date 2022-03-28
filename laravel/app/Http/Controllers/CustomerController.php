@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -364,6 +364,20 @@ class CustomerController extends Controller
     }
 
     /**
+     * Show Detail
+     */
+    public function show(Customer $customer){
+        $customer->load([
+            "user" => function($q){
+                // WITH TRASHED
+                $q->withTrashed()->select("id","code","name");
+            },          
+        ]);
+
+        return response()->json($customer);
+    }
+
+    /**
      * Get User
      */
     public function getUser(){
@@ -375,7 +389,7 @@ class CustomerController extends Controller
 
         if($request->filled("search")){
             $data->where(function($q) use ($request) {
-                $q->orWere("code","like","%".$request->search."%")
+                $q->orWhere("code","like","%".$request->search."%")
                     ->orWhere("name","like","%".$request->search."%");                    
             });
         }        
