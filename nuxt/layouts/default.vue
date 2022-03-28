@@ -1,15 +1,20 @@
 <template>
   <div class="page">
       <header class="navbar navbar-expand-md navbar-light d-print-none">
-        <div class="container-xl">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+        <div class="container-fluid">
+          <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbar-menu">
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href=".">
-              <img src="/static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+              <img src="/img/default.jpeg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
           </h1>
+
           <div class="navbar-nav flex-row order-md-last">
             <div class="nav-item d-none d-md-flex me-3">
               <div class="btn-list">
@@ -139,10 +144,11 @@
           </div>
         </div>
       </header>
+
       <div class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar navbar-light">
-            <div class="container-xl">
+            <div class="container-fluid">
               <ul class="navbar-nav">
                 <li class="nav-item">
                   <a class="nav-link" href="./index.html" >
@@ -457,15 +463,14 @@
 
       <Nuxt/>          
 
+      <portal-target name="form"></portal-target>
+      <portal-target name="form-child"></portal-target>
+      <portal-target name="filter"></portal-target>
 
-    <portal-target name="form"></portal-target>
-    <portal-target name="form-child"></portal-target>
-    <portal-target name="filter"></portal-target>
-
-    <button @click="topScroll"
-      id="topBtn" title="Go to top">
-      <i class="fas fa-caret-up"></i>
-    </button>
+      <button @click="topScroll"
+        id="topBtn" title="Go to top">
+        <i class="fas fa-caret-up"></i>
+      </button>
   </div>
 </template>
 
