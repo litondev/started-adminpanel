@@ -10,4 +10,8 @@ class Customer extends Model
 	use SoftDeletes;
 	
     protected $guarded = [];
+
+    public function user(){
+    	return $this->belongsTo(User::class);
+    }
 }

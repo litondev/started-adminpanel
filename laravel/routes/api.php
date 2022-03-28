@@ -128,48 +128,42 @@ Route::group(["prefix" => $version],function() use ($version) {
 	    	Route::post("/product/restore/{id}",[ProductController::class,"restore"])->name("product.restore");
 
 	    	// CRUD
-			Route::apiResource("product",ProductController::class)->only(["index","store","destroy","update"]);
+			Route::apiResource("product",ProductController::class)->only(["index","store","destroy","update","show"]);
 	});
 
-	// Route::group(["prefix" => "transaction","as" => "transaction."],function(){
-	// 	// TRANSACTION ROUTE 
-	// 		// GET USER FOR TRANSACTION
-	// 		Route::get("/product/get-user",[TransactionController::class,"getUser"])->name("product.get-user");
+	Route::group(["prefix" => "transaction","as" => "transaction."],function(){
+		// TRANSACTION ROUTE 
+			// GET USER FOR TRANSACTION
+			Route::get("/product/get-user",[TransactionController::class,"getUser"])->name("product.get-user");
 
-	// 		// GET CUSTOMER FOR TRANSACTION
-	// 		Route::get("/product/get-customer",[TransactionController::class,"getCustomer"])->name("product.get-customer");
+			// GET CUSTOMER FOR TRANSACTION
+			Route::get("/product/get-customer",[TransactionController::class,"getCustomer"])->name("product.get-customer");
 
-	// 		// GET PRODUCT FOR TRANSACTION
-	// 		Route::get("/product/get-product",[TransactionController::class,"getCustomer"])->name("product.get-customer");
+			// GET PRODUCT FOR TRANSACTION
+			Route::get("/product/get-product",[TransactionController::class,"getCustomer"])->name("product.get-customer");
 
-	// 		// PRINT 
-	//     	Route::get("/product/get-print-detail/{user}",[TransactionController::class,"getPrintDetail"])->name("product.get-transaction-detail");
+			// PRINT 
+	    	Route::get("/product/get-print-detail/{user}",[TransactionController::class,"getPrintDetail"])->name("product.get-transaction-detail");
 
-	// 		// EXPORT  (EXCEL/PDF) ALL
-	// 		Route::get("/product/export/{type}",[TransactionController::class,"export"])->name("eproduct.xport");
+			// EXPORT  (EXCEL/PDF) ALL
+			Route::get("/product/export/{type}",[TransactionController::class,"export"])->name("eproduct.xport");
 
-	// 		// PRINT ALL
-	// 	    Route::get("/product/print",[TransactionController::class,"print"])->name("product.print");	
+			// PRINT ALL
+		    Route::get("/product/print",[TransactionController::class,"print"])->name("product.print");	
 
-	// 	    // IMPORT 
-	// 		Route::post("/product/import",[TransactionController::class,"import"])->name("product.import");
+	    	// GET CODE
+	    	Route::get("/product/get-code",[TransactionController::class,"getCode"])->name("product.get-code");
 
-	// 		// IMPORT TEMPLATE
-	//     	Route::get("/product/import",[TransactionController::class,"importTemplate"])->name("product.import-template");
+	    	// RESTORE ALL
+			Route::post("/product/restore-all",[TransactionController::class,"restoreAll"])->name("product.restore-all");
 
-	//     	// GET CODE
-	//     	Route::get("/product/get-code",[TransactionController::class,"getCode"])->name("product.get-code");
+			// DESTROY ALL
+	    	Route::delete("/product/destroy-all",[TransactionController::class,"destroyAll"])->name("product.destroy-all");
 
-	//     	// RESTORE ALL
-	// 		Route::post("/product/restore-all",[TransactionController::class,"restoreAll"])->name("product.restore-all");
+	    	// RESTORE 
+	    	Route::post("/product/restore/{id}",[TransactionController::class,"restore"])->name("product.restore");
 
-	// 		// DESTROY ALL
-	//     	Route::delete("/product/destroy-all",[TransactionController::class,"destroyAll"])->name("product.destroy-all");
-
-	//     	// RESTORE 
-	//     	Route::post("/product/restore/{id}",[TransactionController::class,"restore"])->name("product.restore");
-
-	//     	// CRUD
-	// 		Route::apiResource("product",TransactionController::class)->only(["index","store","destroy","update"]);
-	// });
+	    	// CRUD
+			Route::apiResource("product",TransactionController::class)->only(["index","store","destroy","update","show"]);
+	});
 });

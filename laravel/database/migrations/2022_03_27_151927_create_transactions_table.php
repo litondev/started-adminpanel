@@ -15,6 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string("code",50)->unique()->nullable();
             $table->foreignId('user_id')->nullable();                    
             $table->foreignId('customer_id')->nullable();                    
             $table->decimal("total",20,2)->default(0)->unsigned();

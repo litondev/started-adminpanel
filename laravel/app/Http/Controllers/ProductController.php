@@ -117,7 +117,7 @@ class ProductController extends Controller
 
             activity()
                 ->performedOn($product)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $product->name,
                     'id' => $product->id,
@@ -172,7 +172,7 @@ class ProductController extends Controller
 
             activity()
                 ->performedOn($product)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $product->name,
                     'id' => $product->id,
@@ -206,7 +206,7 @@ class ProductController extends Controller
 
             activity()
                 ->performedOn($product)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $product->name,
                     'id' => $product->id,
@@ -243,7 +243,7 @@ class ProductController extends Controller
             
             activity()
                 ->performedOn($data)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $data->name,
                     'id' => $data->id,
@@ -276,7 +276,7 @@ class ProductController extends Controller
                 ->delete();  
                 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([            
                     'id' => $request->checkboxs,  
                     'table' => 'products'                  
@@ -309,7 +309,7 @@ class ProductController extends Controller
                 ->restore();    
 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([                            
                     'id' => $request->checkboxs,  
                     'table' => 'products'                  

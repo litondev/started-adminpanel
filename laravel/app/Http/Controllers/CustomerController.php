@@ -99,7 +99,7 @@ class CustomerController extends Controller
 
             activity()
                 ->performedOn($data)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $data->name,
                     'id' => $data->id,
@@ -133,7 +133,7 @@ class CustomerController extends Controller
 
             activity()
                 ->performedOn($customer)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $customer->name,
                     'id' => $customer->id,
@@ -166,7 +166,7 @@ class CustomerController extends Controller
 
             activity()
                 ->performedOn($customer)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $customer->name,
                     'id' => $customer->id,
@@ -203,7 +203,7 @@ class CustomerController extends Controller
             
             activity()
                 ->performedOn($data)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $data->name,
                     'id' => $data->id,
@@ -236,7 +236,7 @@ class CustomerController extends Controller
                 ->delete();  
                 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([            
                     'id' => $request->checkboxs,  
                     'table' => 'customers'                  
@@ -269,7 +269,7 @@ class CustomerController extends Controller
                 ->restore();    
 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([                            
                     'id' => $request->checkboxs,  
                     'table' => 'customers'                  

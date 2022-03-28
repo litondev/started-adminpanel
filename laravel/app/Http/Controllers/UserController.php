@@ -86,7 +86,7 @@ class UserController extends Controller
 
             activity()
                 ->performedOn($data)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $data->name,
                     'id' => $data->id,
@@ -120,7 +120,7 @@ class UserController extends Controller
 
             activity()
                 ->performedOn($user)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $user->name,
                     'id' => $user->id,
@@ -153,7 +153,7 @@ class UserController extends Controller
 
             activity()
                 ->performedOn($user)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $user->name,
                     'id' => $user->id,
@@ -190,7 +190,7 @@ class UserController extends Controller
             
             activity()
                 ->performedOn($data)
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([
                     'name' => $data->name,
                     'id' => $data->id,
@@ -223,7 +223,7 @@ class UserController extends Controller
                 ->delete();  
                 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([            
                     'id' => $request->checkboxs,  
                     'table' => 'users'                  
@@ -256,7 +256,7 @@ class UserController extends Controller
                 ->restore();    
 
             activity()        
-                ->causedBy(auth()->user())
+                // ->causedBy(auth()->user())
                 ->withProperties([                            
                     'id' => $request->checkboxs,  
                     'table' => 'users'                  
