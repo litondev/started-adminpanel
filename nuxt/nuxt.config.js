@@ -46,6 +46,7 @@ export default {
     '~/plugins/v-money',
     '~/plugins/vue-loading-overlay',
     '~/plugins/swal',
+    
     '~/plugins/global-filters',
     '~/plugins/global-components',
   ],

@@ -1,53 +1,55 @@
 <template>
   <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="page-error">
+    <div class="container-fluid mt-5">
+      <div class="d-flex justify-content-center">
 
-          <div class="page-inner" 
-            v-if="error.statusCode == 404">
-            <img
-             src="/img/404.svg" 
-             style="width: 400px; object-fit: cover" 
-            />
-            <div class="page-description mt-3">
-              The page you were looking for could not be found.
-            </div>
-            <div class="page-search">
-              <a href="/">Back to Home</a>
-            </div>
+        <div class="text-center" 
+          v-if="error.statusCode == 404">
+          <img
+           src="/img/404.svg" 
+           style="width: 400px; object-fit: cover" 
+          />
+          <div class="mt-3">
+            The page you were looking for could not be found.
           </div>
-
-          <div class="page-inner" 
-            v-else-if="error.statusCode == 500">
-            <img 
-              src="/img/500.svg" 
-              style="width: 400px; object-fit: cover" 
-              />
-
-            <div class="page-description text-danger mt-3" v-if="isDebug">
-              {{ error.message }}
-            </div>
-
-            <div class="page-description mt-3 text-danger" v-else>Terjadi Kesalahan</div>
-
-            <div class="page-search">
-              <a href="#" @click="onReload">Reload Halaman</a>
-            </div>
-          </div>
-
-          <div class="page-inner" v-else>
-            <img
-              src="/img/something-wrong.svg"
-              style="width: 400px; object-fit: cover"
-            />
-            
-            <div class="page-description">Something Wrong</div>
+          <div class="mt-2">
+            <a href="/">Back to Home</a>
           </div>
         </div>
-        <div class="simple-footer mt-5">Copyright &copy; Stisla 2018</div>
+
+        <div class="text-center" 
+          v-else-if="error.statusCode == 500">
+          <img 
+            src="/img/500.svg" 
+            style="width: 400px; object-fit: cover" 
+            />
+
+          <div class="text-danger mt-3" 
+            v-if="isDebug">
+            {{ error.message }}
+          </div>
+
+          <div class="mt-3 text-danger" 
+            v-else>
+            Terjadi Kesalahan
+          </div>
+
+          <div class="mt-2">
+            <a href="#" @click="onReload">Reload Halaman</a>
+          </div>
+        </div>
+
+        <div class="text-center" v-else>
+          <img
+            src="/img/something-wrong.svg"
+            style="width: 400px; object-fit: cover"
+          />
+          
+          <div class="mt-3">Something Wrong</div>
+        </div>
       </div>
-    </section>
+
+    </div>
   </div>
 </template>
 

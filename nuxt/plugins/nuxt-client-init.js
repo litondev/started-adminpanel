@@ -1,3 +1,3 @@
 export default async (ctx) => {
-    await ctx.store.dispatch('setting/nuxtClientInit', ctx)
+	console.log("First Call");    
 }
