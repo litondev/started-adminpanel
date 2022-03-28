@@ -24,13 +24,15 @@ export default {
     ],        
     link: [
       {rel: 'icon',type: 'image/x-icon',href: (process.env.LOGO_URL || '/img/') + 'default.jpeg'},
-      {rel: 'stylesheet',href : '/dist/css/tabler.min.css'},
-      {rel: 'stylesheet',href : '/dist/css/tabler-flags.min.css'},
-      {rel: 'stylesheet',href : '/dist/css/tabler-payments.min.css'},
-      {rel: 'stylesheet',href : '/dist/css/tabler-vendors.min.css'}
+      {rel: 'stylesheet',href : '/dists/css/tabler.min.css'},
+      {rel: 'stylesheet',href : '/dists/css/tabler-flags.min.css'},
+      {rel: 'stylesheet',href : '/dists/css/tabler-payments.min.css'},
+      {rel: 'stylesheet',href : '/dists/css/tabler-vendors.min.css'},
+      {rel: 'stylesheet',href : '/dists/css/fontawesome/css/all.min.css'},
+      {rel: 'stylesheet',href : '/dists/css/demo.min.css'}
     ],
     script: [
-      { src: "/dist/js/tabler.min.js"},     
+      { src: "/dists/js/tabler.min.js"},           
     ],
   },
 

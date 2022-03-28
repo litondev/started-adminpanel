@@ -59,6 +59,18 @@ export default {
 
   layout: "empty",
 
+  created(){
+    let myScript = [
+      "/dists/js/demo.min.js",    
+    ];
+
+    myScript.forEach((item,index) => {
+      let script = document.createElement('script')
+      script.setAttribute('src', item)
+      document.body.appendChild(script)
+    });
+  },
+
   head() {
     return {
       title: this.error.statusCode,
@@ -85,3 +97,5 @@ export default {
   },
 };
 </script>
+
+
