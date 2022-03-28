@@ -60,18 +60,17 @@ class UserImport implements OnEachRow,WithLimit,SkipsEmptyRows,WithStartRow
                     ->where("code","!=",$row[2])
                     ->first(),
                 new \Exception("Username telah terpakai",422)
-            )
+            );
 
             // GET AND SET 
             User::updateOrCreate([
                 "code" => $row[2],            
             ],[     
-
                 "username" => $row[0],
                 "name" => $row[1],
                 "code" => $row[2],    
                 "email" => $row[3],
-                "password" => \Hash::make($row[4)]
+                "password" => \Hash::make($row[4])
             ]);
 
             // SET SUCCESS CREATE

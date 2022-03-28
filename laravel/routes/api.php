@@ -41,7 +41,7 @@ Route::group(["prefix" => $version],function() use ($version) {
 			// PRINT ALL (DONE)
 		    Route::get("/user/print",[UserController::class,"print"])->name("user.print");	
 
-		    // IMPORT 
+		    // IMPORT (DONE)
 			Route::post("/user/import",[UserController::class,"import"])->name("user.import");
 
 			// IMPORT TEMPLATE (DONE)
@@ -75,7 +75,7 @@ Route::group(["prefix" => $version],function() use ($version) {
 			// PRINT ALL (DONE)
 		    Route::get("/customer/print",[CustomerController::class,"print"])->name("customer.print");	
 
-		    // IMPORT 
+		    // IMPORT (DONE)
 			Route::post("/customer/import",[CustomerController::class,"import"])->name("customer.import");
 
 			// IMPORT TEMPLATE (DONE)
@@ -100,16 +100,16 @@ Route::group(["prefix" => $version],function() use ($version) {
 			// GET USER FOR PRODUCT (DONE)
 			Route::get("/product/get-user",[ProductController::class,"getUser"])->name("product.get-user");
 
-			// PRINT (DONE)
+			// PRINT(DONE)
 	    	Route::get("/product/get-print-detail/{product}",[ProductController::class,"getPrintDetail"])->name("product.get-product-detail");
 
-			// EXPORT  (EXCEL/PDF) ALL (DONE)
+			// EXPORT (EXCEL/PDF) ALL (DONE)
 			Route::get("/product/export/{type}",[ProductController::class,"export"])->name("product.export");
 
 			// PRINT ALL (DONE)
 		    Route::get("/product/print",[ProductController::class,"print"])->name("product.print");	
 
-		    // IMPORT 
+		    // IMPORT (DONE)
 			Route::post("/product/import",[ProductController::class,"import"])->name("product.import");
 
 			// IMPORT TEMPLATE (DONE)
@@ -133,37 +133,37 @@ Route::group(["prefix" => $version],function() use ($version) {
 
 	Route::group(["prefix" => "transaction","as" => "transaction."],function(){
 		// TRANSACTION ROUTE 
-			// GET USER FOR TRANSACTION
+			// GET USER FOR TRANSACTION (DONE)
 			Route::get("/product/get-user",[TransactionController::class,"getUser"])->name("product.get-user");
 
-			// GET CUSTOMER FOR TRANSACTION
+			// GET CUSTOMER FOR TRANSACTION (DONE)
 			Route::get("/product/get-customer",[TransactionController::class,"getCustomer"])->name("product.get-customer");
 
-			// GET PRODUCT FOR TRANSACTION
-			Route::get("/product/get-product",[TransactionController::class,"getCustomer"])->name("product.get-customer");
+			// GET PRODUCT FOR TRANSACTION (DONE)
+			Route::get("/product/get-product",[TransactionController::class,"getProduct"])->name("product.get-product");
 
-			// PRINT 
+			// PRINT (DONE)
 	    	Route::get("/product/get-print-detail/{user}",[TransactionController::class,"getPrintDetail"])->name("product.get-transaction-detail");
 
-			// EXPORT  (EXCEL/PDF) ALL
+			// EXPORT  (EXCEL/PDF) ALL (DONE)
 			Route::get("/product/export/{type}",[TransactionController::class,"export"])->name("eproduct.xport");
 
-			// PRINT ALL
+			// PRINT ALL (DONE)
 		    Route::get("/product/print",[TransactionController::class,"print"])->name("product.print");	
 
-	    	// GET CODE
+	    	// GET CODE (DONE)
 	    	Route::get("/product/get-code",[TransactionController::class,"getCode"])->name("product.get-code");
 
-	    	// RESTORE ALL
+	    	// RESTORE ALL (DONE)
 			Route::post("/product/restore-all",[TransactionController::class,"restoreAll"])->name("product.restore-all");
 
-			// DESTROY ALL
+			// DESTROY ALL (DONE)
 	    	Route::delete("/product/destroy-all",[TransactionController::class,"destroyAll"])->name("product.destroy-all");
 
-	    	// RESTORE 
+	    	// RESTORE (DONE)
 	    	Route::post("/product/restore/{id}",[TransactionController::class,"restore"])->name("product.restore");
 
-	    	// CRUD
+	    	// CRUD (DONE)
 			Route::apiResource("product",TransactionController::class)->only(["index","store","destroy","update","show"]);
 	});
 });

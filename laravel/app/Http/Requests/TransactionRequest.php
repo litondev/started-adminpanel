@@ -33,7 +33,7 @@ class TransactionRequest extends FormRequest
         ];
 
         if($this->method() == "PUT" || $this->method() == "put"){
-            $rules["code"] = $rules["code"].",".$this->po_supplier->id;
+            $rules["code"] = $rules["code"].",".request()->route('id');
         }
 
         return $rules;

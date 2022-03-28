@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ class TransactionController extends Controller
         $data = Transaction::query();
 
         $data->select(
-            "id","code","total","grand_total","quantity"
+            "id","code","total","grand_total","quantity",
             "user_id","customer_id",
             "deleted_at"
         );
@@ -44,7 +44,7 @@ class TransactionController extends Controller
             },
             "customer" => function($q){
                 // WITH TRASHED
-                $q->withTrashed()->select("id",,"code","name");
+                $q->withTrashed()->select("id","code","name");
             }        
         ]);
         
@@ -114,7 +114,7 @@ class TransactionController extends Controller
 
             foreach($request->transaction_details as $item){                
                 $product = Product::query()
-                    ->select("sold","name","stock")
+                    ->select("id","sold","name","stock")
                     ->where("id",$item["product_id"])
                     ->first();
 
@@ -127,10 +127,10 @@ class TransactionController extends Controller
                     $product->stock - $item["quantity"] < 0,
                     new \Exception("Produk ".$product->name." Stok tidak cukup")
                 );
-
+                
                 $product->update([
-                    "stock" => ($product->stock - $item["quantity"]),
-                    "sold" => ($product->sold + $item["quantity"])
+                    "stock" => $product->stock - $item["quantity"],
+                    "sold" => $product->sold + $item["quantity"]
                 ]);
 
                 $transaction->transaction_details()->create([
@@ -138,7 +138,7 @@ class TransactionController extends Controller
                     "amount" => $item["amount"],
                     "quantity" => $item["quantity"],
                     "total" => $item["total"]
-                ]);                
+                ]);                      
             }
 
             activity()
@@ -151,7 +151,7 @@ class TransactionController extends Controller
                 ])
                 ->log('Created Data');
 
-            \DB::commit();
+            \DB::commit();      
             return response()->json([
                 "status" => true
             ]);
@@ -168,20 +168,22 @@ class TransactionController extends Controller
      * @param  int  $ids
      * @return \Illuminate\Http\Response
      */
-    public function update(TransactionRequest $request,Transaction $transaction)
+    public function update(TransactionRequest $request,$id)
     {
-        try{    
+        try{                
             \DB::beginTransaction();
+            
+            $transaction = Transaction::findOrFail($id);
 
             $payload = $request->validated();
 
             unset($payload["transaction_details"]);
 
-            $transaction = $transaction->update($payload);
+            $transaction->update($payload);
 
             foreach($request->transaction_details as $item){                
                 $product = Product::query()
-                    ->select("sold","name","stock")
+                    ->select("id","sold","name","stock")
                     ->where("id",$item["product_id"])
                     ->first();
 
@@ -233,11 +235,13 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy($id)
     {
         try{    
             \DB::beginTransaction();            
-                    
+            
+            $transaction = Transaction::findOrFail($id);
+
             $transaction->delete();
 
             activity()
@@ -407,7 +411,9 @@ class TransactionController extends Controller
     /**
      * Print Detail
      */
-    public function getPrintDetail(Transaction $transaction){    
+    public function getPrintDetail($id){    
+        $transaction = Transaction::findOrFail($id);
+
         $transaction->load([
             "user" => function($q){
                 $q->withTrashed()->select("id","code","name");
@@ -433,7 +439,9 @@ class TransactionController extends Controller
     /**
      * Show Detail
      */
-    public function show(Transaction $transaction){
+    public function show($id){
+        $transaction = Transaction::findOrFail($id);
+
         $transaction->load([
             "user" => function($q){
                 $q->withTrashed()->select("id","code","name");

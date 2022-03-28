@@ -13,7 +13,7 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_transactions', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string("code",50)->unique()->nullable();
             $table->foreignId('user_id')->nullable();                    
