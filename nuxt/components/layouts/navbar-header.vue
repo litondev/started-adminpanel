@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div>
  <header class="navbar navbar-expand-md navbar-light d-print-none">
     <div class="container-fluid">
       <button class="navbar-toggler" 
@@ -17,7 +17,7 @@
         <nuxt-link to="/">
           <img src="" 
             width="110" 
-            height="32" 
+            height="20" 
             alt="Tabler"             
             id="navbar-brand-image"
             class="navbar-brand-image">

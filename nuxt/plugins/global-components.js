@@ -1,22 +1,18 @@
-// import Vue from 'vue'
-// import HeaderSection from '~/components/section/HeaderSection';
+import Vue from 'vue'
 // import ReportSection from '~/components/section/ReportSection';
 // import FilterSection from '~/components/section/FilterSection';
-// import TableHeaderSection from '~/components/section/TableHeaderSection';
-// import TableDataLoadingSection from '~/components/section/TableDataLoadingSection';
-// import TableDataNotFoundSection from '~/components/section/TableDataNotFoundSection';
-// import ListOptionSection from "~/components/section/ListOptionSection";
-// import PaginationSection from "~/components/section/PaginationSection";
-// import ModalHeaderSection from "~/components/section/ModalHeaderSection";
-// import ModalFooterSection from "~/components/section/ModalFooterSection";
+import TableDataLoadingSection from '~/components/global/TableDataLoadingSection';
+import TableDataNotFoundSection from '~/components/global/TableDataNotFoundSection';
+import ListOptionSection from "~/components/global/ListOptionSection";
+import ListAllOptionSection from "~/components/global/ListAllOptionSection";
+import PaginationSection from "~/components/global/PaginationSection";
+import ThSortTableSection from "~/components/global/ThSortTableSection";
 
-// Vue.component("header-section",HeaderSection);
 // Vue.component("report-section",ReportSection);
 // Vue.component("filter-section",FilterSection);
-// Vue.component("table-header-section",TableHeaderSection);
-// Vue.component('table-data-loading-section',TableDataLoadingSection);
-// Vue.component('table-data-not-found-section',TableDataNotFoundSection);
-// Vue.component('list-option-section',ListOptionSection);
-// Vue.component("pagination-section",PaginationSection);
-// Vue.component("modal-header-section",ModalHeaderSection);
-// Vue.component("modal-footer-section",ModalFooterSection);
+Vue.component('table-data-loading-section',TableDataLoadingSection);
+Vue.component('table-data-not-found-section',TableDataNotFoundSection);
+Vue.component('list-option-section',ListOptionSection);
+Vue.component('list-all-option-section',ListAllOptionSection);
+Vue.component("pagination-section",PaginationSection);
+Vue.component('th-sort-table-section',ThSortTableSection);
