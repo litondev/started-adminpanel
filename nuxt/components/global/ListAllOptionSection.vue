@@ -14,5 +14,7 @@
           style="margin-right: 5px"></i> Pulihkan Semua
       </button>
     </div>
+    
+    <slot></slot>
   </div>
 </template>

@@ -3,7 +3,16 @@
     <div class="page-body">
       <div class="container-fluid">
         <div class="card">        
-          <list-option-section />    
+          <list-option-section> 
+            <template v-slot:left>
+              <div class="mx-2 mt-1 mb-1">  
+                <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-download"
+                   style="margin-right: 5px"></i> Import
+                </button>
+              </div>
+            </template>
+          </list-option-section>
           
           <list-all-option-section />        
 

@@ -65,7 +65,10 @@
           </div>
         </div>
 
+        <slot name="left"></slot>
+
         <div class="ms-auto text-muted mt-3">
+          <slot name="right"></slot>
           <div class="btn-group">
             <button class="btn btn-outline-primary btn-sm"
               v-if="$parent.headers.showFilter">
