@@ -38,7 +38,8 @@
 
         <div class="mx-2 mt-1 mb-1"
           v-if="$parent.headers.showAdd">
-          <button class="btn btn-primary btn-sm">
+          <button class="btn btn-primary btn-sm"
+            @click="$parent.onAdd">
             <i class="fa fa-plus"
               style="margin-right: 5px"></i> Tambah
           </button>              

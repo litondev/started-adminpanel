@@ -89,7 +89,9 @@
                       </button>
                       <button class="btn btn-primary btn-sm"
                         @click="onDetail(item)"
-                        v-if="!item.deleted_at">
+                        v-if="!item.deleted_at"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modal-detail">
                         <i class="fa fa-info-circle"></i>
                       </button>
                       <button class="btn btn-success btn-sm"
@@ -112,7 +114,7 @@
                      
               <table-data-not-found-section/>
 
-               <table-data-loading-section/>
+              <table-data-loading-section/>
 
             </table>
           </div>
@@ -122,30 +124,34 @@
       </div>
     </div> 
 
+     <modal-form ref="modal-form" />
+
+     <modal-detail />
+
      <report-section />
 
      <filter-section>
       <template>        
-            <div class="row">
-              <div class="col-12 mt-3">
-                <div class="form-group">
-                  <label for="start_date">Awal</label>
-                  <input type="date" 
-                    class="form-control mt-2" 
-                    v-model="parameters.params.start_date"
-                  />
-                </div>
-              </div>
-              <div class="col-12 mt-3">
-                <div class="form-group">
-                  <label for="end_date">Akhir</label>
-                  <input type="date" 
-                    class="form-control mt-2" 
-                    v-model="parameters.params.end_date"
-                  />
-                </div>
-              </div>
-            </div>            
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <label for="start_date">Awal</label>
+              <input type="date" 
+                class="form-control mt-2" 
+                v-model="parameters.params.start_date"
+              />
+            </div>
+          </div>
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <label for="end_date">Akhir</label>
+              <input type="date" 
+                class="form-control mt-2" 
+                v-model="parameters.params.end_date"
+              />
+            </div>
+          </div>
+        </div>            
       </template>
     </filter-section>
         
@@ -168,6 +174,9 @@ import MixinOnRestore from "@/mixins/methods/on-restore";
 import MixinOnRestoreAll from "@/mixins/methods/on-restore-all";
 
 import PageHead from "@/mixins/heads/head";
+
+import ModalDetail from "./detail";
+import ModalForm from "./form";
 
 export default {
   mixins : [
@@ -196,22 +205,97 @@ export default {
     return {
       title : 'User',
 
-      url : "/master/user",    
+      url : "/master/user",
+
+      isLoadingGetCode : false,
+
+      isLoadingForm : false,
+
+      isEditable : false,  
+
+      form : {
+        code : '',
+        name : '',
+        username : '',
+        email : '',
+        password: ''        
+      },
+
+      default_form : {
+        code : '',
+        name : '',
+        username : '',
+        email : '',
+        password: ''      
+      },
+
+      detail_form : {}    
     }
   },  
 
-  methods : {      
+  methods : {        
+    onDetail(item){     
+      this.detail_form = {
+        ...item
+      }
+    },
+
     onAdd(){
+      this.$refs["modal-form"].$refs["form"].reset();
+
+      this.form = {...this.default_form}
+
+      this.isEditable = false;
+
+      this.onGetCode();
+
+      var myModal = new bootstrap.Modal(document.getElementById('modal-form'), {
+        keyboard: false
+      })
+
+      myModal.show();
     },
 
-    onEdit(){
+    onGetCode(){
+      if(this.isLoadingGetCode) return;
+
+      this.isLoadingGetCode = true;
+
+      this.$axios.get(this.url + "/get-code")
+        .then(res => {
+          this.form.code = res.data.code;
+        })
+        .finally(() => {
+          this.isLoadingGetCode = false;
+        });
     },
 
-    onDetail(){
+    onEdit(item){
+      this.$refs["modal-form"].$refs["form"].reset();
+      
+      this.form = {
+        ...item
+      };
+  
+      this.isEditable = true;      
+
+      var myModal = new bootstrap.Modal(document.getElementById('modal-form'), {
+        keyboard: false
+      })
+
+      myModal.show();
     },
 
-    onSubmit(){
+    onSubmit(isInvalid){
+      if(isInvalid || this.isLoadingForm) return;
+
+      console.log("Submit");
     }
-  }
+  },
+
+  components : {
+    ModalDetail,
+    ModalForm
+  }  
 }
 </script>

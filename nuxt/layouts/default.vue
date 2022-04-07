@@ -10,8 +10,9 @@
 
       <Nuxt/>          
 
-      <portal-target name="form"/>
-      <portal-target name="form-child"/>
+      <portal-target name="modal-form"/>
+      <portal-target name="modal-form-child"/>
+      <portal-target name="modal-detail"/>
       <portal-target name="modal-filter"/>
       <portal-target name="modal-report"/>
 
