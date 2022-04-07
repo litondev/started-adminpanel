@@ -1,6 +1,12 @@
 export default {
+  data(){
+    return {
+      isLoadingPage : true
+    }
+  },
 	methods : {
 		onLoad(){
+          this.checkboxs = [];
       		this.isLoadingPage = true;
 
       		this.$axios.get(this.url,{

@@ -1,139 +1,124 @@
 <template>
-  <div class="float-right mt-2" style="width: 40%; margin-right: -75px">
-    <div class="d-flex">
-      <div class="mb-2" v-if="self.isShowSoftDeleted">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label
-            class="btn btn-success cursor-pointer"
-            @click="
-              self.search.soft_deleted = 'normal';
-              self.onLoad();
-            "
-            :class="self.search.soft_deleted == 'normal' ? 'active' : ''"
-          >
-            <input
-              type="radio"
-              name="soft_deleted"
-              id="soft_deleted_option1"
-              autocomplete="off"
-              checked
-            />
-            <span
-              v-if="self.isLoadingPage && self.search.soft_deleted == 'normal'"
-            >
-              <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-            </span>
-            <span v-else> Normal </span>
-          </label>
-          <label
-            class="btn btn-success cursor-pointer"
-            @click="
-              self.search.soft_deleted = 'deleted';
-              self.onLoad();
-            "
-            :class="self.search.soft_deleted == 'deleted' ? 'active' : ''"
-          >
-            <input
-              type="radio"
-              name="soft_deleted"
-              id="soft_deleted_option2"
-              autocomplete="off"
-            />
-            <span
-              v-if="self.isLoadingPage && self.search.soft_deleted == 'deleted'"
-            >
-              <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-            </span>
-            <span v-else> Trash </span>
-          </label>
+  <portal to="modal-report">
+    <div class="container-modal-report"
+      id="modal-report">
+      <div class="row">
+        <div class="col-md-8 left-modal-report" 
+          @click="onHideReport"></div>
+        <div class="col-md-4 right-modal-report">         
+          <div class="d-flex flex-row justify-content-between p-3">
+            <h3>Report : </h3>
+            <i class="fa fa-times fa-2x cursor-pointer"
+              @click="onHideReport"></i>
+          </div>
+
+          <div class="p-3">
+            <slot name="top"></slot>
+
+            <div class="pt-2 pb-2">
+              <div class="p-2">Dengan Pagination </div>
+              <select class="form-control"
+                v-model="all">
+                <option value="0">Ya</option>
+                <option value="1">Tidak</option>
+              </select>
+            </div>
+
+            <div class="pt-2 pb-2">          
+              <button class="btn btn-primary w-100"
+                @click="onPrint">
+                <i class="fa fa-print"
+                  style="margin-right: 5px"></i>
+                Print
+              </button>
+            </div>
+
+            <div class="btn-group pt-2 pb-2 w-100">            
+              <button class="btn btn-danger btn-block"
+                @click="onDownload('pdf')">
+                <i class="fa fa-file"
+                  style="margin-right: 5px"></i> Pdf
+              </button>
+              <button class="btn btn-success btn-block"
+                @click="onDownload('excel')">
+                <i class="fa fa-file"
+                  style="margin-right: 5px"></i> Execl
+              </button>
+            </div>
+
+            <slot name="bottom"></slot>
+          </div>
         </div>
       </div>
-
-
-      <div class="mb-2" v-if="self.isShowImport">
-        <nuxt-link :to="importTo" class="btn btn-primary"> Import </nuxt-link>
-      </div>
-
-      <div class="mb-2" v-if="self.isShowReport">
-        <div class="dt-buttons btn-group">
-          <button
-            class="btn btn-sm btn-success"
-            @click="self.onReport('excel')"
-            :disabled="self.isLoadingReport && self.reportType == 'excel'"
-          >
-            <span v-if="self.isLoadingReport && self.reportType == 'excel'">
-              <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-            </span>
-            <span v-else> Excel </span>
-          </button>
-          <button
-            class="btn btn-sm btn-success"
-            @click="self.onReport('csv')"
-            :disabled="self.isLoadingReport && self.reportType == 'csv'"
-          >
-            <span v-if="self.isLoadingReport && self.reportType == 'csv'">
-              <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-            </span>
-            <span v-else> Csv </span>
-          </button>
-          <button
-            class="btn btn-sm btn-success"
-            @click="self.onReport('pdf')"
-            :disabled="self.isLoadingReport && self.reportType == 'pdf'"
-          >
-            <span v-if="self.isLoadingReport && self.reportType == 'pdf'">
-              <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-            </span>
-            <span v-else> Pdf </span>
-          </button>
-
-        </div>
-      </div>
-
     </div>
-
-    <div
-      v-if="self.isShowCheckbox"
-      class="text-right d-flex justify-content-around flex-row-reverse"
-    >
-      <button
-        class="btn btn-danger"
-        v-if="isShowDeletedAll"
-        @click="self.onDeleteAll"
-      >
-        <i class="fas fa-trash"></i> Hapus Semua
-      </button>
-
-      <button
-        class="btn btn-success"
-        v-if="isShowRestoreAll"
-        @click="self.onRestoreAll"
-      >
-        <i
-          class="fas fa-circle-notch fa-spin fa-2x"
-          v-if="self.isLoadingRestore && self.indexRestore == 'none'"
-        >
-        </i>
-        <i class="fas fa-refresh" v-else></i>
-        Restore Semua
-      </button>
-    </div>
-    <div class="mb-2">
-        <slot></slot>
-      </div>
-  </div>
+  </portal>
 </template>
 
 <script>
-export default {
-  props: {
-    self: Object,
+export default {  
+  data(){
+    return {
+      all : 0
+    }
   },
 
-  computed: {
+  methods : {
+    onHideReport(){
+      document.getElementById("modal-report").style.display = "none";
+    },   
 
+    onPrint(){
+      let parameters = "?";
 
+      Object.keys(this.$parent.parameters.params).forEach(item => {
+          parameters += item + "=" + this.$parent.parameters.params[item] + "&";
+      });
+  
+      parameters += parseInt(this.all) ? "all=true" : "all=";  
 
-  },
-};
+      window.open(
+        process.env.API_URL + this.$parent.url + "/print" + parameters,
+        "_blank"
+      );
+    },
+
+    onDownload(type){
+      let parameters = "?";
+
+      Object.keys(this.$parent.parameters.params).forEach(item => {
+          parameters += item + "=" + this.$parent.parameters.params[item] + "&";
+      });
+  
+      parameters += parseInt(this.all) ? "all=true" : "all=";  
+
+      window.open(
+        process.env.API_URL + this.$parent.url + "/export/" + type + "/" + parameters,
+        "_blank"
+      );    
+    }
+  }
+}
 </script>
+
+<style scoped>
+.container-modal-report{
+   position:fixed;
+   top:0px;
+   bottom:0px;
+   left:0px;
+   right:0px;
+   display: none;
+   z-index: 9999999
+}
+
+.left-modal-report{
+  opacity:0.3;
+  background:black;
+  min-height:100vh;
+}
+
+.right-modal-report{
+  background: white;
+  min-height: 100vh;
+}
+</style>

@@ -10,9 +10,10 @@
 
       <Nuxt/>          
 
-      <portal-target name="form"></portal-target>
-      <portal-target name="form-child"></portal-target>
-      <portal-target name="filter"></portal-target>
+      <portal-target name="form"/>
+      <portal-target name="form-child"/>
+      <portal-target name="modal-filter"/>
+      <portal-target name="modal-report"/>
 
       <button @click="topScroll"
         id="topBtn" title="Go to top">

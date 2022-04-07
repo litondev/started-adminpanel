@@ -71,18 +71,21 @@
           <slot name="right"></slot>
           <div class="btn-group">
             <button class="btn btn-outline-primary btn-sm"
-              v-if="$parent.headers.showFilter">
+              v-if="$parent.headers.showFilter"
+              @click="onShowFilter">
               <i class="fa fa-align-left"
               style="margin-right: 5px"></i> Filter
             </button>
             <button class="btn btn-outline-primary btn-sm"
-              v-if="$parent.headers.showFilter">
+              v-if="$parent.headers.showFilter"
+              @click="onResetFilter()">
               <i class="fa fa-redo"
               style="margin-right: 5px"></i> Reset Filter
             </button>
           </div>
           <button class="btn btn-outline-primary btn-sm"
-            v-if="$parent.headers.showReport">
+            v-if="$parent.headers.showReport"
+            @click="onShowReport">
              <i class="fa fa-file"
              style="margin-right: 5px"></i> Laporan
           </button>
@@ -90,3 +93,25 @@
       </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods : {
+    onShowFilter(){
+      document.getElementById("modal-filter").style.display = "block";
+    },
+
+    onResetFilter(){
+      this.$parent.parameters.params = {
+        ...this.$parent.parameters.default_params
+      }
+    
+      this.$parent.onLoad();
+    },  
+
+    onShowReport(){
+      document.getElementById("modal-report").style.display = "block";
+    }
+  }
+}
+</script>

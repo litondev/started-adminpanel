@@ -10,8 +10,8 @@ export default {
         		showReport : true,
 
         		showCheckboxs : true,
-        		showDestroyAll : false,
-        		showRestoreAll : false,        
+        		showDestroyAll : true,
+        		showRestoreAll : true,        
       		},
 		}
 	}

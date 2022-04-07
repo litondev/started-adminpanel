@@ -25,7 +25,8 @@
                     v-if="headers.showCheckboxs">
                     <input class="form-check-input m-0 align-middle" 
                       type="checkbox" 
-                      aria-label="Select all invoices">
+                      aria-label="Select all invoices"
+                      @click="onCheckAll">
                   </th>
 
                   <th>
@@ -58,7 +59,10 @@
                     v-if="headers.showCheckboxs">
                     <input class="form-check-input m-0 align-middle" 
                       type="checkbox" 
-                      aria-label="Select invoice">
+                      :value="item.id"
+                      name="checkboxs[]"
+                      aria-label="Select invoice"
+                      v-model="checkboxs">
                   </td>
                   <td><span class="text-muted">{{ index++ + 1 }}</span></td>
                   <td><span class="text-muted">{{ item.code }}</span></td>
@@ -73,17 +77,33 @@
                   </td>           
                   <td class="text-end">
                     <div class="btn-group">
-                      <button class="btn btn-danger btn-sm">
+                      <button class="btn btn-danger btn-sm"
+                        @click="onDestroy(item)"
+                        v-if="!item.deleted_at">
                         <i class="fa fa-trash"></i>
                       </button>
-                      <button class="btn btn-danger btn-sm"> 
+                      <button class="btn btn-danger btn-sm"
+                        @click="onPrintDetail(item)"
+                        v-if="!item.deleted_at">
                         <i class="fa fa-print"></i>
                       </button>
-                      <button class="btn btn-primary btn-sm">
+                      <button class="btn btn-primary btn-sm"
+                        @click="onDetail(item)"
+                        v-if="!item.deleted_at">
                         <i class="fa fa-info-circle"></i>
                       </button>
-                      <button class="btn btn-success btn-sm">
+                      <button class="btn btn-success btn-sm"
+                        @click="onEdit(item)"
+                        v-if="!item.deleted_at">
                         <i class="fa fa-edit"></i>
+                      </button>
+                      <button class="btn btn-success btn-sm"
+                        v-if="item.deleted_at"
+                        @click="onRestore(item)">
+                        <i class="fa fa-circle-notch fa-spin fa-1x"
+                          v-if="isLoadingRestore && idLoadingRestore == item.id"></i>                  
+                        <i class="fa fa-redo"
+                          v-else></i>
                       </button>
                     </div>
                   </td>
@@ -100,7 +120,35 @@
           <pagination-section />
         </div>    
       </div>
-    </div>       
+    </div> 
+
+     <report-section />
+
+     <filter-section>
+      <template>        
+            <div class="row">
+              <div class="col-12 mt-3">
+                <div class="form-group">
+                  <label for="start_date">Awal</label>
+                  <input type="date" 
+                    class="form-control mt-2" 
+                    v-model="parameters.params.start_date"
+                  />
+                </div>
+              </div>
+              <div class="col-12 mt-3">
+                <div class="form-group">
+                  <label for="end_date">Akhir</label>
+                  <input type="date" 
+                    class="form-control mt-2" 
+                    v-model="parameters.params.end_date"
+                  />
+                </div>
+              </div>
+            </div>            
+      </template>
+    </filter-section>
+        
  </div>
 </template>
 
@@ -109,10 +157,15 @@ import MixinHeader from "@/mixins/datas/headers";
 import MixinsParameter from "@/mixins/datas/parameters";
 import MixinItem from "@/mixins/datas/items";
 import MixinCheckbox from "@/mixins/datas/checkbox";
-import MixinLoadingPage from "@/mixins/datas/loading-page";
 
 import MixinOnLoad from "@/mixins/methods/on-load";
 import MixinOnSort from "@/mixins/methods/on-sort";
+import MixinOnCheckAll from "@/mixins/methods/on-check-all";
+import MixinOnPrintDetail from "@/mixins/methods/on-print-detail";
+import MixinOnDestroy from "@/mixins/methods/on-destroy";
+import MixinOnDestroyAll from "@/mixins/methods/on-destroy-all";
+import MixinOnRestore from "@/mixins/methods/on-restore";
+import MixinOnRestoreAll from "@/mixins/methods/on-restore-all";
 
 import PageHead from "@/mixins/heads/head";
 
@@ -121,11 +174,16 @@ export default {
     MixinHeader,
     MixinsParameter,
     MixinItem,
-    MixinLoadingPage,
     MixinCheckbox,
 
     MixinOnLoad,
     MixinOnSort,
+    MixinOnCheckAll,
+    MixinOnPrintDetail,
+    MixinOnDestroy,
+    MixinOnDestroyAll,  
+    MixinOnRestore,
+    MixinOnRestoreAll,
 
     PageHead
   ],
@@ -144,49 +202,16 @@ export default {
 
   methods : {      
     onAdd(){
-
     },
 
     onEdit(){
-
     },
 
     onDetail(){
-
     },
 
     onSubmit(){
-
-    },
-
-    onDestroy(){
-
-    },
-
-    onRestore(){
-
-    },
-
-    onDestroyAll(){
-
-    },
-
-    onRestoreAll(){
-
-    },
-
-    onCheckAll(evt){
-      let tmpCheckboxs = [];
-
-      document.querySelectorAll("input[name='checkboxs[]']").forEach(item => {
-        item.checked = evt.target.checked;
-        if(evt.target.checked){
-          tmpCheckboxs.push(item.value);
-        }
-      })
-
-      this.parameters.form.checkboxs = tmpCheckboxs
-    }    
+    }
   }
 }
 </script>

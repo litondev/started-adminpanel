@@ -50,6 +50,13 @@ class UserController extends Controller
             });        
         }        
 
+        if($request->filled("start_date") && $request->filled("end_date")){
+            $data->whereBetween("created_at",[
+                $request->start_date,
+                $request->end_date
+            ]);
+        }
+
         $data = $data->orderBy($request->order ?? "id",$request->sort ?? "desc");
 
         if(!$request->filled("all")){
