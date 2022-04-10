@@ -75,8 +75,7 @@
                       <div>
                         <input type="text"
                           class="form-control form-control-sm"
-                          v-model="$parent.form.username"
-                          :disabled="true"
+                          v-model="$parent.form.username"                      
                           name="username"
                           :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : '')"
                         />
@@ -90,26 +89,44 @@
                   </div>
 
                   <div class="col-md-6">
-                    <div class="form-group p-2">
+                    <ValidationProvider
+                        name="email"
+                        rules="required|email">
+                    <div class="form-group p-2" slot-scope="{errors,valid}">
                       <label for="email">Email</label>
                       <div>
                         <input type="text"
                           class="form-control form-control-sm"
                           v-model="$parent.form.email"
                           name="email"
+                          :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : '')"
                         />
+
+                        <div class="invalid-feedback" v-if="errors[0]">
+                          {{ errors[0] }}
+                        </div>
                       </div>
                     </div>
+                    </ValidationProvider>
                   </div>                             
               </div>    
 
-              <div class="form-group p-2">
-                <label for="password">Password</label>
-                <input type="password"
-                  class="form-control form-control-sm"
-                  v-model="$parent.form.password"
-                  />
-              </div>
+              <ValidationProvider
+                name="password"
+                :rules="!$parent.isEditable ? 'required' : ''">
+                <div class="form-group p-2" slot-scope="{errors,valid}">
+                  <label for="password">Password</label>
+                  <input type="password"
+                    class="form-control form-control-sm"
+                    v-model="$parent.form.password"
+                    :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : '')"
+                    />
+
+                    <div class="invalid-feedback" v-if="errors[0]">
+                      {{ errors[0] }}
+                    </div>
+                </div>
+              </ValidationProvider>
 
               <div class="mt-2 mb-2 p-2">
                 <button class="btn btn-primary btn-sm">

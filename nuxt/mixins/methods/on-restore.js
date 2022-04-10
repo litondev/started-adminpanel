@@ -16,11 +16,7 @@ export default {
           this.onLoad();
         })
         .catch(err => {
-          if(err.response && err.response.status === 500){
-            this.$toaster.error(err.response.data.message || "Terjadi Kesalahan")
-          }else{
-            this.$toaster.error("Terjadi Kesalahan")
-          }       
+          this.$globalErrorToaster(err);
         })
         .finally(() => {
           this.isLoadingRestore = false;

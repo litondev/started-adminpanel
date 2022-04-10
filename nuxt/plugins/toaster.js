@@ -2,22 +2,23 @@ import Vue from 'vue'
 import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 
-Vue.prototype.$globalErrorToaster = function($toaster,$err){
+Vue.prototype.$globalErrorToaster = function($err){
    if($err.response && $err.response.status === 422){
-      $toaster.error($err.response.data.message || 'Terjadi Kesalahan');
+      this.$toaster.error($err.response.data.message || 'Terjadi Kesalahan');
     }else if($err.response && $err.response.status === 500){
-      $toaster.error($err.response.data.message || 'Terjadi Kesalahan');
+      this.$toaster.error($err.response.data.message || 'Terjadi Kesalahan');
     }else if($err.response && $err.response.status === 503){
-      $toaster.error("Maintenance");
+      this.$toaster.error("Maintenance");
     }else if($err.response && $err.response.status === 401){
-      $toaster.error($err.response.data.message || 'Terjadi Kesalahan');
+      this.$toaster.error($err.response.data.message || 'Terjadi Kesalahan');
+
       if($err.response.data.message == "Unauthorized"){
         this.$auth.logout().then(() => {
           window.location = "/";
         })
       }
     }else {      
-      $toaster.error('Terjadi Kesalahan');
+      this.$toaster.error('Terjadi Kesalahan');
     }
 }
 

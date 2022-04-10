@@ -6,7 +6,8 @@
           <list-option-section> 
             <template v-slot:left>
               <div class="mx-2 mt-1 mb-1">  
-                <button class="btn btn-primary btn-sm">
+                <button class="btn btn-primary btn-sm"
+                  @click="$router.push('/master/user/import')">
                   <i class="fa fa-download"
                    style="margin-right: 5px"></i> Import
                 </button>
@@ -173,6 +174,12 @@ import MixinOnDestroyAll from "@/mixins/methods/on-destroy-all";
 import MixinOnRestore from "@/mixins/methods/on-restore";
 import MixinOnRestoreAll from "@/mixins/methods/on-restore-all";
 
+import MixinOnAdd from "@/mixins/methods/on-add";
+import MixinOnEdit from "@/mixins/methods/on-edit";
+import MixinOnDetail from "@/mixins/methods/on-detail";
+import MixinOnGetCode from "@/mixins/methods/on-get-code";
+import MixinOnSubmit from "@/mixins/methods/on-submit";
+
 import PageHead from "@/mixins/heads/head";
 
 import ModalDetail from "./detail";
@@ -194,6 +201,12 @@ export default {
     MixinOnRestore,
     MixinOnRestoreAll,
 
+    MixinOnAdd,
+    MixinOnEdit,
+    MixinOnDetail,
+    MixinOnGetCode,
+    MixinOnSubmit,
+    
     PageHead
   ],
 
@@ -206,12 +219,6 @@ export default {
       title : 'User',
 
       url : "/master/user",
-
-      isLoadingGetCode : false,
-
-      isLoadingForm : false,
-
-      isEditable : false,  
 
       form : {
         code : '',
@@ -229,69 +236,11 @@ export default {
         password: ''      
       },
 
-      detail_form : {}    
+      relasional_form : [
+        {'form' : 'user_id','item' : 'user'}
+      ]
     }
   },  
-
-  methods : {        
-    onDetail(item){     
-      this.detail_form = {
-        ...item
-      }
-    },
-
-    onAdd(){
-      this.$refs["modal-form"].$refs["form"].reset();
-
-      this.form = {...this.default_form}
-
-      this.isEditable = false;
-
-      this.onGetCode();
-
-      var myModal = new bootstrap.Modal(document.getElementById('modal-form'), {
-        keyboard: false
-      })
-
-      myModal.show();
-    },
-
-    onGetCode(){
-      if(this.isLoadingGetCode) return;
-
-      this.isLoadingGetCode = true;
-
-      this.$axios.get(this.url + "/get-code")
-        .then(res => {
-          this.form.code = res.data.code;
-        })
-        .finally(() => {
-          this.isLoadingGetCode = false;
-        });
-    },
-
-    onEdit(item){
-      this.$refs["modal-form"].$refs["form"].reset();
-      
-      this.form = {
-        ...item
-      };
-  
-      this.isEditable = true;      
-
-      var myModal = new bootstrap.Modal(document.getElementById('modal-form'), {
-        keyboard: false
-      })
-
-      myModal.show();
-    },
-
-    onSubmit(isInvalid){
-      if(isInvalid || this.isLoadingForm) return;
-
-      console.log("Submit");
-    }
-  },
 
   components : {
     ModalDetail,

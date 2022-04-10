@@ -10,11 +10,11 @@
 
       <Nuxt/>          
 
-      <portal-target name="modal-form"/>
-      <portal-target name="modal-form-child"/>
+      <portal-target name="modal-form"/>      
       <portal-target name="modal-detail"/>
       <portal-target name="modal-filter"/>
       <portal-target name="modal-report"/>
+      <portal-target name="modal-other" multiple/>
 
       <button @click="topScroll"
         id="topBtn" title="Go to top">
