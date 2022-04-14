@@ -123,12 +123,13 @@
 
     <modal-user 
       ref="modal-user-data" 
-      :onChooseUser="onChooseUser"/>
+      :onChooseUser="onChooseUser"
+      url="master/customer/get-user" />
   </portal>
 </template>
 
 <script>
-import ModalUser from "./modal/user.vue";
+import ModalUser from "@/components/global/relasional/user.vue";
 
 export default {
   data(){

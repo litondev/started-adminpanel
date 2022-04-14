@@ -127,7 +127,7 @@ import MixinsParameter from "@/mixins/datas/parameters";
 import MixinItem from "@/mixins/datas/items";
 
 export default {
-  props: ['onChooseUser'],
+  props: ['onChooseUser','url'],
 
   mixins : [
     MixinOnSort,
@@ -147,7 +147,7 @@ export default {
 
       this.isLoadingPage = true;
 
-      this.$axios.get("/master/customer/get-user",{
+      this.$axios.get(this.url,{
         params : this.parameters.params
       })
       .then(res => {
