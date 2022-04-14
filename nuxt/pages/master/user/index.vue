@@ -55,7 +55,8 @@
               </thead>
 
               <tbody v-if="items.data.length && !isLoadingPage">
-                <tr v-for="(item,index) in items.data">
+                <tr v-for="(item,index) in items.data"
+                  :key="index">
                   <td                    
                     v-if="headers.showCheckboxs">
                     <input class="form-check-input m-0 align-middle" 
