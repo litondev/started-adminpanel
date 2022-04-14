@@ -37,7 +37,8 @@ class ProductController extends Controller
 
         $data->select(
             "id","code","name",
-            "user_id",         
+            "user_id",  
+            "price","stock","sold","images",       
             "deleted_at"
         );  
 

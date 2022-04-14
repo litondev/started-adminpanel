@@ -33,7 +33,7 @@
           User
         </nuxt-link>
         <nuxt-link class="dropdown-item" 
-          to="/master/user">
+          to="/master/product">
           Produk
         </nuxt-link>
         <nuxt-link class="dropdown-item" 
