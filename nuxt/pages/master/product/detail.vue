@@ -35,7 +35,7 @@
              <div class="row p-2">
                <div class="col-md-4 form-group p-2">
                  <label for="price">Price</label>
-                 <div>{{$parent.detail_form.price | fromatPrice}}</div>
+                 <div>{{$parent.detail_form.price}}</div>
                </div>
                <div class="col-md-4 form-group p-2">
                  <label for="stock">Stok</label>
