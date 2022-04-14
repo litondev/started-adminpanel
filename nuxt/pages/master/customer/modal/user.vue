@@ -16,11 +16,13 @@
               <div class="row">
                 <div class="mb-2 col-md-4">
                   <input type="text" class="form-control form-control-sm" placeholder="Search . . ."
-                    v-model="parameters.params.search">              
+                    v-model="parameters.params.search"
+                    @keyup.enter="onLoad">              
                 </div>
                 <div class="mb-2 col-md-4">
                   <select class="form-control form-control-sm"
-                    v-model="parameters.params.per_page">
+                    v-model="parameters.params.per_page"
+                    @change="onLoad">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -62,19 +64,20 @@
                       </div>
                     </th>
                   </tr>
-                    <tbody v-if="items.data.length && !isLoadingPage">
-                  <tr v-for="(item,index) in items.data"
-                    :key="index">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.code }}</td>
-                    <td>
-                      <div class="btn-group">
-                        <button class="btn btn-success btn-sm"
-                          @click="onChoose(item)">Pilih</button>
-                      </div>
-                    </td>
-                  </tr>
-                    </tbody>
+
+                  <tbody v-if="items.data.length && !isLoadingPage">
+                    <tr v-for="(item,index) in items.data"
+                      :key="index">
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.code }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-success btn-sm"
+                            @click="onChooseUser(item)">Pilih</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
 
                   <tbody v-if="isLoadingPage">
                     <tr>
@@ -103,11 +106,11 @@
               </div>
 
               <div class="text-center mt-3">
-                <button class="btn btn-primary btn-sm"
+                <button class="btn btn-primary btn-sm mr-4"
                   v-if="items.current_page != 1"
-                  @click="parameters.params.page -= 1;onLoad()">Next</button>
-                <div class="d-inline mr-2 ml-2">{{items.current_page}}</div>
-                <button class="btn btn-primary btn-sm"
+                  @click="parameters.params.page -= 1;onLoad()">Prev</button>
+                <div class="d-inline-block w-50"><b>{{items.current_page}}</b></div>
+                <button class="btn btn-primary btn-sm ml-4"
                   v-if="items.current_page != items.last_page"
                   @click="parameters.params.page += 1;onLoad()">Next</button>
               </div>
@@ -124,18 +127,20 @@ import MixinsParameter from "@/mixins/datas/parameters";
 import MixinItem from "@/mixins/datas/items";
 
 export default {
-  props: ['onChoose'],
-  data(){
-    return {
-      isLoadingPage : false,
-    }
-  },
+  props: ['onChooseUser'],
 
   mixins : [
     MixinOnSort,
     MixinsParameter,
     MixinItem
   ],
+  
+  data(){
+    return {
+      isLoadingPage : false,
+    }
+  },
+
   methods : {
     onLoad(){
       if(this.isLoadingPage) return;
@@ -151,6 +156,7 @@ export default {
       })
       .catch(err => {
         console.log(err);
+        this.$toaster.error("Terjadi kesalahan saat mengambil data");
       })
     },
     onReset(){

@@ -68,7 +68,7 @@ class CustomerImport implements OnEachRow,WithLimit,SkipsEmptyRows,WithStartRow
                 "code" => $row[1],
                 "user_id" => $user->id,
                 "address" => $row[3],
-                "payment_type" => $row[4]
+                "payment_type" => $row[4] ?? "CASH"
             ]);
 
             // SET SUCCESS CREATE

@@ -84,13 +84,24 @@
                 </div>
               </div>
 
-              <div class="form-group p-2">
-                <label for="user_id">User</label>
-                <div>
-                  <input type="text" class="form-control" :value="typeof $parent.form.user_id == 'object' ? $parent.form.user_id.name : '...'" 
-                    @focus="showModalUser">
+              <ValidationProvider
+                name="user_id"
+                rules="required">
+                <div class="form-group p-2" slot-scope="{errors,valid}">
+                  <label for="user_id">User</label>
+                  <div>              
+                    <input type="text" class="form-control" 
+                      name="user_id"
+                      :value="typeof $parent.form.user_id == 'object' ? $parent.form.user_id.name : ''" 
+                      :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : '')"
+                      @focus="showModalUser">
+
+                      <div class="invalid-feedback" v-if="errors[0]">
+                        {{ errors[0] }}
+                      </div>
+                  </div>
                 </div>
-              </div>
+              </ValidationProvider>
 
               <div class="mt-2 mb-2 p-2">
                 <button class="btn btn-primary btn-sm">
@@ -110,7 +121,9 @@
       </div>
     </div>
 
-    <modal-user ref="modal-user-data" :onChoose="onChoose"/>
+    <modal-user 
+      ref="modal-user-data" 
+      :onChooseUser="onChooseUser"/>
   </portal>
 </template>
 
@@ -139,7 +152,7 @@ export default {
       this.$refs["modal-user-data"].onLoad();
     },
 
-    onChoose(item){
+    onChooseUser(item){
       this.modal_user.hide();
       this.$parent.modal_form.show();
       this.$parent.form.user_id = item;

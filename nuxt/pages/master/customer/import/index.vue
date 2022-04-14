@@ -113,9 +113,9 @@ export default {
 
   data () {
     return {
-      url : "/master/user/import",
+      url : "/master/customer/import",
 
-      title : 'Import data user',    
+      title : 'Import data pelanggan',    
 
       errorSelected : {}, 
 

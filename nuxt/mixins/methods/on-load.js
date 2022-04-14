@@ -1,12 +1,12 @@
 export default {
-  data(){
-    return {
-      isLoadingPage : true
-    }
-  },
+  	data(){
+    	return {
+      	isLoadingPage : true
+	    }
+  	},
 	methods : {
 		onLoad(){
-          this.checkboxs = [];
+          	this.checkboxs = [];
       		this.isLoadingPage = true;
 
       		this.$axios.get(this.url,{
@@ -17,9 +17,7 @@ export default {
 
         		this.items = {
 	          		...res.data
-        	}
-
-		        console.log(res.data);
+        		}
       		})
       		.catch(err => {
 	    	    console.log(err);
