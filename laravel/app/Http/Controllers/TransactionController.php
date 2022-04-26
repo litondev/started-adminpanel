@@ -171,7 +171,7 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransactionUpdateService $service,$id)
+    public function destroy(TransactionDestroyService $service,$id)
     {
         try{    
             \DB::beginTransaction();                                   
