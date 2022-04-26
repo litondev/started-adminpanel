@@ -17,6 +17,11 @@ use App\Http\Requests\{
 };
 use App\Helpers\FormatResponse;
 use App\Exports\TransactionExport;
+use App\Service\Transaction\{
+    TransactionDestroyService,
+    TransactionStoreService,
+    TransactionUpdateService
+};
 
 class TransactionController extends Controller
 {  
@@ -99,48 +104,13 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TransactionRequest $request)
+    public function store(TransactionRequest $request,TransactionStoreService $service)
     {
         try{    
             \DB::beginTransaction();
 
-            $payload = $request->validated();
-
-            unset($payload["transaction_details"]);
-
-            $transaction = Transaction::create($payload);
-
-            $transaction->transaction_details()->delete();
-
-            foreach($request->transaction_details as $item){                
-                $product = Product::query()
-                    ->select("id","sold","name","stock")
-                    ->where("id",$item["product_id"])
-                    ->first();
-
-                throw_if(
-                    $product->stock < 1,
-                    new \Exception("Produk ".$product->name." Stok kosong")
-                );
-
-                throw_if(
-                    $product->stock - $item["quantity"] < 0,
-                    new \Exception("Produk ".$product->name." Stok tidak cukup")
-                );
-                
-                $product->update([
-                    "stock" => $product->stock - $item["quantity"],
-                    "sold" => $product->sold + $item["quantity"]
-                ]);
-
-                $transaction->transaction_details()->create([
-                    "product_id" => $item["product_id"],
-                    "amount" => $item["amount"],
-                    "quantity" => $item["quantity"],
-                    "total" => $item["total"]
-                ]);                      
-            }
-
+            $transaction = $service->store($request);
+                    
             activity()
                 ->performedOn($transaction)
                 // ->causedBy(auth()->user())
@@ -168,47 +138,13 @@ class TransactionController extends Controller
      * @param  int  $ids
      * @return \Illuminate\Http\Response
      */
-    public function update(TransactionRequest $request,$id)
+    public function update(TransactionRequest $request,TransactionUpdateService $service,$id)
     {
         try{                
             \DB::beginTransaction();
-            
-            $transaction = Transaction::findOrFail($id);
 
-            $payload = $request->validated();
-
-            unset($payload["transaction_details"]);
-
-            $transaction->update($payload);
-
-            foreach($request->transaction_details as $item){                
-                $product = Product::query()
-                    ->select("id","sold","name","stock")
-                    ->where("id",$item["product_id"])
-                    ->first();
-
-                $transactionDetail = TransactionDetail::query()
-                    ->where("product_id",$item["product_id"])
-                    ->where("transaction_id",$transaction->id)
-                    ->first();
-
-                throw_if(
-                    ($product->stock + $transactionDetail->quantity) - $item["quantity"] < 0,
-                    new \Exception("Produk ".$product->name." Stok tidak cukup")
-                );
-
-                $product->update([
-                    "stock" => ( ($product->stock + $transactionDetail->quantity) - $item["quantity"]),
-                    "sold" => ( ($product->sold - $transactionDetail->quantity) + $item["quantity"])
-                ]);
-
-                $transactionDetail->update([
-                    "amount" => $item["amount"],
-                    "quantity" => $item["quantity"],
-                    "total" => $item["total"]
-                ]);
-            }
-
+            $transaction = $service->upadte($id,$request);
+          
             activity()
                 ->performedOn($transaction)
                 // ->causedBy(auth()->user())
@@ -235,14 +171,12 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TransactionUpdateService $service,$id)
     {
         try{    
-            \DB::beginTransaction();            
-            
-            $transaction = Transaction::findOrFail($id);
+            \DB::beginTransaction();                                   
 
-            $transaction->delete();
+            $transaction = $service->destroy($id);
 
             activity()
                 ->performedOn($transaction)
