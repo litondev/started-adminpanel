@@ -143,7 +143,7 @@ class TransactionController extends Controller
         try{                
             \DB::beginTransaction();
 
-            $transaction = $service->upadte($id,$request);
+            $transaction = $service->update($id,$request);
           
             activity()
                 ->performedOn($transaction)

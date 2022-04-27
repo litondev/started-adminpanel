@@ -3,6 +3,7 @@ import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 
 Vue.prototype.$globalErrorToaster = function($err){
+  
    if($err.response && $err.response.status === 422){
       this.$toaster.error($err.response.data.message || 'Terjadi Kesalahan');
     }else if($err.response && $err.response.status === 500){
